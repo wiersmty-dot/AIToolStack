@@ -1,0 +1,19 @@
+# Lint config for this example. Scoped here so it does not affect the rest of
+# the repository, which is not currently linted.
+#
+# py310 is the floor because the anthropic 1.x SDK requires Python >= 3.10.
+target-version = "py310"
+
+[lint]
+select = [
+    "E",    # pycodestyle errors
+    "W",    # pycodestyle warnings
+    "F",    # pyflakes
+    "I",    # import sorting
+    "UP",   # pyupgrade
+    "B",    # bugbear
+    "SIM",  # flake8-simplify
+    "C4",   # comprehensions
+    "RET",  # return conventions
+    "PTH",  # prefer pathlib
+]

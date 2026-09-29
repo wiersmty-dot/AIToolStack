@@ -1,0 +1,39 @@
+name: Lint example
+
+# Scoped to the managed-agent example: the rest of the repository is not
+# currently linted, so this only runs when the example (or this workflow)
+# changes.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "examples/managed-agent/**"
+      - ".github/workflows/lint-example.yml"
+  pull_request:
+    paths:
+      - "examples/managed-agent/**"
+      - ".github/workflows/lint-example.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  ruff:
+    name: ruff
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install ruff
+        run: pip install ruff==0.15.8
+
+      # Picks up examples/managed-agent/ruff.toml automatically.
+      - name: Lint
+        run: ruff check --output-format=github examples/managed-agent
+
+      - name: Check formatting
+        run: ruff format --check --diff examples/managed-agent

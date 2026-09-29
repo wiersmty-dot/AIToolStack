@@ -69,3 +69,18 @@ This is a kickoff-and-read client, deliberately minimal:
 SDK exceptions are caught most-specific-first (404, 401, 429, other non-2xx,
 then network). `session.error` events on the stream are written to stderr and
 set a non-zero exit code. Exit codes: `0` success, `1` error, `130` Ctrl-C.
+
+## Linting
+
+This example is linted with [ruff](https://docs.astral.sh/ruff/); the rules
+live in `ruff.toml` alongside the code. To run the same checks CI runs:
+
+```bash
+pip install ruff==0.15.8
+ruff check examples/managed-agent
+ruff format --check examples/managed-agent
+```
+
+`.github/workflows/lint-example.yml` runs both on any pull request that touches
+this directory. The rest of the repository is not linted, and the workflow's
+path filter keeps it that way.
